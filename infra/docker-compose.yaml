@@ -9,7 +9,7 @@ services:
       - ./.env
 
   web:
-    image: kmilobendzky/yamdb_final:v24.03.2022
+    image: kmilobendzky/yamdb_final:latest
     build: ../api_yamdb
     restart: always
     volumes:
