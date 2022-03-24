@@ -1,9 +1,6 @@
 name: Yamdb workflow
 
-on: 
-  push:
-    branches: 
-      - '**'
+on: [push]
 
 jobs:
   tests:
@@ -41,13 +38,13 @@ jobs:
       - name: Login to Docker 
         uses: docker/login-action@v1 
         with:
-          contest: api_yamdb/
           username: ${{ secrets.DOCKER_USERNAME }} 
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push to Docker Hub 
         uses: docker/build-push-action@v2 
         with:
+          contest: api_yamdb/
           push: true
           tags: kmilobendzky/yamdb_final:v24.03.2022
 
