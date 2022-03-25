@@ -10,7 +10,7 @@ services:
 
   web:
     image: kmilobendzky/yamdb_final:v24.03.2022
-    build: ./api_yamdb
+    build: ../api_yamdb
     restart: always
     volumes:
       - static_value:/app/static/
