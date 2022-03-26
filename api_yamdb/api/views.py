@@ -138,8 +138,9 @@ class CommentViewSet(viewsets.ModelViewSet):
                           | IsAdminOrReadOnly | IsSuperuser]
 
     def get_queryset(self):
-        return Comment.objects.filter(review__id=self.kwargs['review_id'],
-                                      title__id=self.kwargs['title_id'])
+        comments = Comment.objects.filter(review__id=self.kwargs['review_id'],
+                                          title__id=self.kwargs['title_id'])
+        return comments
 
     def perform_create(self, serializer):
         review = get_object_or_404(Review, id=self.kwargs['review_id'],
