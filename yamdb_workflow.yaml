@@ -70,6 +70,7 @@ jobs:
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
           echo DJ_SECRET_KEY=${{ secrets.DJ_SECRET_KEY }} >> .env
+          sudo systemctl stop nginx
           sudo docker-compose up -d --build
           docker-compose exec web python manage.py migrate
           docker-compose exec web python manage.py collectstatic --no-input
