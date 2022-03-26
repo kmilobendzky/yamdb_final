@@ -45,7 +45,7 @@ jobs:
       - name: Push to Docker Hub 
         uses: docker/build-push-action@v2 
         with:
-          contest: ..api_yamdb/
+          #contest: ..api_yamdb/
           push: true
           tags: kmilobendzky/yamdb_final:v24.03.2022
 
