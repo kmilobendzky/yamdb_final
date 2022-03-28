@@ -71,12 +71,9 @@ jobs:
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
           echo DJ_SECRET_KEY=${{ secrets.DJ_SECRET_KEY }} >> .env
+          sudo docker-compose pull web
           sudo docker-compose up -d --build
           sudo docker-compose exec -T web python manage.py migrate
-          docker-compose exec -T web python manage.py createsuperuser
-          echo ${{ secrets.SUPERUSER }}
-          echo ${{ secrets.SUPERUSER_PASSPHRASE }}
-          echo ${{ secrets.SUPERUSER_PASSPHRASE }}
           sudo docker-compose exec -T web python manage.py collectstatic --no-input      
 
   send_message:
