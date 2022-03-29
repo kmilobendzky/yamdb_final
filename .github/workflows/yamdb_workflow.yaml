@@ -18,9 +18,11 @@ jobs:
         python -m pip install --upgrade pip 
         pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
         pip install -r requirements.txt
-    - name: Testing with flake8 and pytest
+    - name: Testing with flake8
       run: |
-        python -m flake8 
+        python -m flake8
+    - name: Testing with pytest
+      run: |
         pytest
 
   build_and_push_to_docker_hub:
@@ -43,7 +45,6 @@ jobs:
       - name: Pushing to Docker Hub 
         uses: docker/build-push-action@v2 
         with:
-          context: api_yamdb/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/yamdb_final:latest
 
@@ -71,20 +72,16 @@ jobs:
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
           echo DJ_SECRET_KEY=${{ secrets.DJ_SECRET_KEY }} >> .env
-          sudo docker-compose pull web
           sudo docker-compose up -d --build
-          sudo docker-compose exec -T web python manage.py migrate
-          sudo docker-compose exec -T web python manage.py collectstatic --no-input      
 
   send_message:
     name: Sending message to Telegram
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-    - name: Send message
+    - name: Sending message
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: ${{ github.workflow }} успешно выполнен!
- 
