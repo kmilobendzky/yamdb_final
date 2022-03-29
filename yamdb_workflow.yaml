@@ -18,11 +18,9 @@ jobs:
         python -m pip install --upgrade pip 
         pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
         pip install -r requirements.txt
-    - name: Testing with flake8
+    - name: Testing with flake8 and pytest
       run: |
-        python -m flake8
-    - name: Testing with pytest
-      run: |
+        python -m flake8 
         pytest
 
   build_and_push_to_docker_hub:
@@ -85,3 +83,4 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: ${{ github.workflow }} успешно выполнен!
+ 
